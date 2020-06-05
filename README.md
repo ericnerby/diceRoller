@@ -4,7 +4,7 @@ A dice roller using javascript and jQuery
 There is an explanation to the code at the bottom of scripts.js
 
 I use Jquery, you do not have to be familiar with jQuery but do know that $('#dice').click(function() on line 1, and $( "#result" )...
-on line 18, is the same thing as saying document.getElementById('idName') with regular js.
+on line 17, is the same thing as saying document.getElementById('idName') with regular js.
 
 This is certainly not the most efficient way to acheive the desired outcome, however it uses a lot of different skills and serves as a decent demo, at least i think so, of a lot of different things you can do with javascript.
 
