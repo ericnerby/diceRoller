@@ -7,7 +7,7 @@ $( "#dice" ).click(function() {
   let die4 = Math.floor((Math.random() * 6) + 1)
 
   let total = [die1, die2, die3, die4 ]
-  // total.sort(function(a, b){return b-a});
+  
   // console.log(total)
   postCheck(total);
 
