@@ -1,0 +1,9 @@
+button {
+    padding: 24px;
+    border-radius: 8px;
+}
+
+li {
+    list-style: none;
+    display: inline;
+}
