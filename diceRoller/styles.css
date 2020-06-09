@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+button,
+li {
+    padding: 24px;
+    border-radius: 8px;
+    border: 3px solid black;
+}
+li {
+    list-style: none;
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    text-align: center;
+    margin-top: 2em;
+}

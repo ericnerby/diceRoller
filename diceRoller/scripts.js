@@ -1,13 +1,29 @@
+/**
+ * Rolls one 'die' by generating a random number between 1 and the given number
+ * @param   {number} sides - the number of sides on the die. should be an integer
+ * @returns {number} one random number between one and the number given
+ */
+const dieRoll = sides => Math.floor( (Math.random() * sides) + 1 );
+
+/**
+ * Rolls a given number of dice and returns an array containing all the rolls
+ * @param  {number} count - how many dice to roll
+ * @param  {number} sides - how many sides are on each die
+ * @returns {array} an array where each element is one die roll
+ */
+function multiDiceRoll(count,sides) {
+  let cup = [];
+  for (let i = 0; i < count; i++) {
+    cup.push( dieRoll(sides) );
+  }
+  return cup;
+}
+
 $( "#dice" ).click(function() {
 
 
-  let die1 = Math.floor((Math.random() * 6) + 1)
-  let die2 = Math.floor((Math.random() * 6) + 1)
-  let die3 = Math.floor((Math.random() * 6) + 1)
-  let die4 = Math.floor((Math.random() * 6) + 1)
-
-  let total = [die1, die2, die3, die4 ]
-  
+  let total = multiDiceRoll(4,6);
+  total.sort(function(a, b){return b-a});
   // console.log(total)
   postCheck(total);
 
@@ -33,14 +49,9 @@ function postCheck(total) {
     result.empty()
     console.log(result)
     // open up #div result in the console. console.log(result) will return an array. notice how the one that runs on line 18 has a value for the innerHTML and innerText.
-    // whereas the console.log on line 34 is completely empty
+    // whereas the console.log on line 50 is completely empty
 
-    let die1 = Math.floor((Math.random() * 6) + 1)
-    let die2 = Math.floor((Math.random() * 6) + 1)
-    let die3 = Math.floor((Math.random() * 6) + 1)
-    let die4 = Math.floor((Math.random() * 6) + 1)
-
-    let total = [die1, die2, die3, die4 ]
+    let total = multiDiceRoll(4,6);
 
     total.sort(function(a, b){return b-a});
     console.log(total)
@@ -52,21 +63,20 @@ function postCheck(total) {
 
 // We have two elements on the html page. One is a <button> with an id="#dice", the other is an originally empty <div> with in id="result" of which we populate with this js function above
 //
-// line 1: Initilizes the script by listening for a click on the html <button> with an id of #dice. it is when and only when a user clicks
+// line 17: Initilizes the script by listening for a click on the html <button> with an id of #dice. it is when and only when a user clicks
 // on the button that the function runs.
 //
-// line 4,5,6,7: declares variables and sets them to equal the result of a random number 1 through 6. links below to MDN on Math.floor() and Math.random()
+// line 20: declare an array which we call total. total[] accepts the values from a function we're calling that generates a given number of random numbers between 1 and another given number, in this case, 6. links below to MDN on Math.floor() and Math.random()
 //    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor
 //    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 //
-// line 9: declare an array which we call total. total[] accepts the values of the random numbers from die1, die2, die3, die4.
 
-// Line 10: sorts the value of total in descending order. Remember, total = an array [die1, die2, die3, die4]. Link below for more info on the sort method
+// Line 26: sorts the value of total in descending order. Remember, total = an array [die1, die2, die3, die4]. Link below for more info on the sort method
 //    https://www.w3schools.com/jsref/jsref_sort.asp
 
-// Line 11: un-comment the console.log(total) to see what values are being passed to total[] in the console if you would like.
+// Line 27: un-comment the console.log(total) to see what values are being passed to total[] in the console if you would like.
 
-// Line 12: initializes the postCheck() function and passes in the array total as an argument. Yes, we are running a function inside of another function!!
+// Line 28: initializes the postCheck() function and passes in the array total as an argument. Yes, we are running a function inside of another function!!
 
 // Line 16: try console logging total right below this line, you will see that total still equals the same array in the same order we console logged from line 11,
 //    We have simply passed it in as an argument to another function this time.
