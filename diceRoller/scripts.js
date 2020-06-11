@@ -78,34 +78,34 @@ function postCheck(total) {
 
 // Line 28: initializes the postCheck() function and passes in the array total as an argument. Yes, we are running a function inside of another function!!
 
-// Line 16: try console logging total right below this line, you will see that total still equals the same array in the same order we console logged from line 11,
+// Line 32: try console logging total right below this line, you will see that total still equals the same array in the same order we console logged from line 27,
 //    We have simply passed it in as an argument to another function this time.
 
-// Line 17: declares a new variable called result, which we set to equal the document object model (DOM element) with an id of result.
+// Line 33: declares a new variable called result, which we set to equal the document object model (DOM element) with an id of result.
 //    notice how we reference it for the remainder of the postCheck function. instead of typing out document.getElementById() everywhere, we can simply refer to the DOM element
 //    by typing result, and the function will know exactly what we mean.
 
-// Line 19: (result.is(':empty')) this conditional checks to see if result is empty. If it is empty, we can go ahead and post our new dice rolls to html.
+// Line 35: (result.is(':empty')) this conditional checks to see if result is empty. If it is empty, we can go ahead and post our new dice rolls to html.
 //    if this conditional returns true we will run all the code inside the if block. This includes the for each loop, which will run once for every value in total[]
 
-// Line 21: jQuery syntax foreach loop. check MDN for this syntax as well as what it would look like in vanilla JS
+// Line 37: jQuery syntax foreach loop. check MDN for this syntax as well as what it would look like in vanilla JS
 
-// Line 23: We append each value of total[] to the end of the result (which equals <div id=result></div>)
+// Line 39: We append each value of total[] to the end of the result (which equals <div id=result></div>)
 //    we also concatenate opening and closing list tags.
-//    NOTE... we pass in index and value for the items of total in line 21. If we wanted to display the index of each of these elements as well we could concatenate it like such
+//    NOTE... we pass in index and value for the items of total in line 37. If we wanted to display the index of each of these elements as well we could concatenate it like such
 //    concat ex. result.append( '<li>' + 'Array item index is:' + index + '<br>' + 'Array item value is:' + value + '</li>' + '<br>')
 //    Once there is nothing left in total[] to append the function returns by itself, there is no need for a return statement in this particular function.
 
-// Line 31: The else statement will run when the if statement was returned false, but we need the if statement to return true if we ever want to exit the function,
+// Line 47: The else statement will run when the if statement was returned false, but we need the if statement to return true if we ever want to exit the function,
 //    so lets delete all the content result.
 
-// Line 33: deletes the content of result. So by accessing the DOM we have removed all the list items that we previously posted
+// Line 49: deletes the content of result. So by accessing the DOM we have removed all the list items that we previously posted
 
 
-// Line 48: we call the postCheck function within itself and pass in a new value for total. Since we deleted the content of result, the if conditional should now return true
+// Line 59: we call the postCheck function within itself and pass in a new value for total. Since we deleted the content of result, the if conditional should now return true
 //    This means that the if block will run and the content we want to be displayed will be visible.
 
-// Else block: the rest of the else block repeats the code from lines 4 through 9. Obviously this is less than ideal repeating ourselves like this.
+// Else block: the rest of the else block repeats the code from lines 25 through 28. Obviously this is less than ideal repeating ourselves like this.
 //    however for this demonstration I am not worried about it too much.
 
 // Challenge: There are numerous ways to not repeat our code like this for this example maybe have a try at it yourself if you are feeling adventurous.
