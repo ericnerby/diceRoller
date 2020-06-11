@@ -1,5 +1,13 @@
-// We have two elements on the html page. One is a <button> with an id="#dice", the other is an originally empty <div> with in id="result" of which we populate with this js function above
+// We have two elements on the html page. One is a <button> with an id="#dice", the other is an originally empty <div> with in id="result" that we populate using the below code
 
+let rollButton = document.getElementById("dice");
+
+/**
+ * Checks a given HTML object to see if it's empty
+ * @param   {Object}  object - the object we're checking
+ * @returns {boolean} true if the object is empty, false if the object contains content
+ */
+const isEmpty = object => Object.keys(object).length === 0;
 
 /**
  * Rolls one 'die' by generating a random number between 1 and the given number
@@ -22,9 +30,17 @@ function multiDiceRoll(count,sides) {
   return cup;
 }
 
+/**
+ * Places content in a given HTML object
+ * @param {string} content     - content to be placed
+ * @param {string} destination - Object where the content should be placed
+ */
+function print(content,destination) {
+  let outputDiv = document.getElementById(destination);
+  outputDiv.innerHTML = content;
+}
 
-
-$( "#dice" ).click(function() {
+rollButton.onclick = function rollTheDice() {
   // Initilizes the script by listening for a click on the html <button> with an id of #dice. it is when and only when a user clicks
   // on the button that the function runs.
 
@@ -44,7 +60,7 @@ $( "#dice" ).click(function() {
   // Initializes the postCheck() function and passes in the array total as an argument. Yes, we are running a function inside of another function!!
   postCheck(total);
 
-});
+};
 
 function postCheck(total) {
   // Try console logging total right below this line, you will see that total still equals the same array in the same order we console logged from the previous function,
@@ -53,29 +69,37 @@ function postCheck(total) {
   // Declares a new variable called result, which we set to equal the document object model (DOM element) with an id of result.
   //    notice how we reference it for the remainder of the postCheck function. instead of typing out document.getElementById() everywhere, we can simply refer to the DOM element
   //    by typing result, and the function will know exactly what we mean.
-  let result = $( "#result" );
+  let result = document.getElementById( "result" );
   console.log(result)
 
-  // (result.is(':empty')) this conditional checks to see if result is empty. If it is empty, we can go ahead and post our new dice rolls to html.
+  // ( isEmpty( result ) this conditional checks to see if result is empty. If it is empty, we can go ahead and post our new dice rolls to html.
   //    if this conditional returns true we will run all the code inside the if block. This includes the for each loop, which will run once for every value in total[]
-  if (result.is(':empty')) {
+  // The process of converting to vanilla javascript means it was more practical to create a function to check for an empty HTML element.
+  
+  if ( isEmpty( result ) ) {
 
-    // jQuery syntax foreach loop. check MDN for this syntax as well as what it would look like in vanilla JS
-    $.each(total, function(index, value) {
+    // Converted to vanilla js for loop, and added opening and closing ul tags before printing to the webpage
+    let contentString = "<ul>";
+    for ( i=0; i<total.length; i++) {
 
       // We append each value of total[] to the end of the result (which equals <div id=result></div>)
       //    we also concatenate opening and closing list tags.
       //    NOTE... we pass in index and value for the items of total in the above line. If we wanted to display the index of each of these elements as well we could concatenate it like such
       //    concat ex. result.append( '<li>' + 'Array item index is:' + index + '<br>' + 'Array item value is:' + value + '</li>' + '<br>')
       //    Once there is nothing left in total[] to append the function returns by itself, there is no need for a return statement in this particular function.
-      result.append( '<li>' + value + '</li>' + '<br>');
+      contentString += '<li>' + total[i] + '</li>';
 
       console.log("if was true")
       console.log(total);
       // you will see this console log for each item in the array as the for each loop will run until it has nothing left to append.
       // so in this case you will see these two logs above 4 times every time the button is pressed
 
-    });
+    }
+
+    // Add the closing ul tag and then call the function to "print" the content to the webpage.
+    contentString += '</ul>';
+    print(contentString, 'result');
+    
   } else {
     // The else statement will run when the if statement was returned false, but we need the if statement to return true if we ever want to exit the function,
     //    so lets delete all the content result.
@@ -84,23 +108,23 @@ function postCheck(total) {
     result.empty()
 
     console.log(result)
-    // open up #div result in the console. console.log(result) will return an array. notice how the one that runs on line 18 has a value for the innerHTML and innerText.
-    // whereas the console.log on line 50 is completely empty
+    // open up #div result in the console. console.log(result) will return an array. notice how the one that runs earlier has a value for the innerHTML and innerText.
+    // whereas the console.log here is completely empty
 
     // Else block: the rest of the else block repeats the code from the click function. Obviously this is less than ideal repeating ourselves like this.
     //    however for this demonstration I am not worried about it too much.
+    
+    // The below code (commented out) is not necessary since result is being emptied and total is not. total was passed into this function, and the same total can be
+    //    passed through the function again.
+    // let total = multiDiceRoll(4,6);
+    // total.sort(function(a, b){return b-a});
 
-    let total = multiDiceRoll(4,6);
-
-    total.sort(function(a, b){return b-a});
     console.log(total)
     console.log("recursion")
 
     // We call the postCheck function within itself and pass in a new value for total. Since we deleted the content of result, the if conditional should now return true
     //    This means that the if block will run and the content we want to be displayed will be visible.
     postCheck(total);
-    
-
   }
 };
 
@@ -109,11 +133,14 @@ function postCheck(total) {
   //    This has been addressed. The sort function was missing from the code in the initial click function.
 
   // Second: It isnt the best thing to repeat our code, see if we can get the code to run properly without having to declare the same four variables and the same array twice in the same function.
-  //    Some functionality has been broken out into separate functions. More can still be done.
+  //    Solution:
+  //        Created new functions for rolling dice and printing to page to cut down on repeated code
+  //        Removed repeated code in the else section. This wasn't necessary since random numbers had already been generated from the click event and passed into the function    
 
   // Last: It is ugly as sin, How can we style this differently to make it appear better? Remember, although you dont see them in index.html
   //    ... the values of total[] are displayed within list tags so you may style those as well.
   //    Some of this has been addressed. Some formatting has been added to the list items, and the typo in the title "styles.css" has been corrected.
+   
   // Happy coding everyone, and reach out to me on slack if you have any questions.
 
 
