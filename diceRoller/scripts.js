@@ -4,7 +4,7 @@ let rollButton = document.getElementById("dice");
 
 /**
  * Checks a given HTML element to see if it's empty
- * @param   {element}  element - the id of the element we're checking
+ * @param   {element}  element - the element we're checking
  * @returns {boolean} true if the element is empty, false if the element contains content
  */
 const isEmpty = element => element.innerHTML === "";
