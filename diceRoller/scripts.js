@@ -3,11 +3,11 @@
 let rollButton = document.getElementById("dice");
 
 /**
- * Checks a given HTML object to see if it's empty
- * @param   {Object}  object - the object we're checking
- * @returns {boolean} true if the object is empty, false if the object contains content
+ * Checks a given HTML element to see if it's empty
+ * @param   {element}  element - the id of the element we're checking
+ * @returns {boolean} true if the element is empty, false if the element contains content
  */
-const isEmpty = object => Object.keys(object).length === 0;
+const isEmpty = element => element.innerHTML === "";
 
 /**
  * Rolls one 'die' by generating a random number between 1 and the given number
@@ -31,13 +31,21 @@ function multiDiceRoll(count,sides) {
 }
 
 /**
- * Places content in a given HTML object
+ * Places content in a given HTML element
  * @param {string} content     - content to be placed
- * @param {string} destination - Object where the content should be placed
+ * @param {element} destination - element where the content should be placed
  */
 function print(content,destination) {
   let outputDiv = document.getElementById(destination);
   outputDiv.innerHTML = content;
+}
+
+/**
+ * Clears the contents of a given HTML element
+ * @param {element} element - HTML element to be cleared
+ */
+function clearContents(element) {
+  element.innerHTML = "";
 }
 
 rollButton.onclick = function rollTheDice() {
@@ -75,7 +83,7 @@ function postCheck(total) {
   // ( isEmpty( result ) this conditional checks to see if result is empty. If it is empty, we can go ahead and post our new dice rolls to html.
   //    if this conditional returns true we will run all the code inside the if block. This includes the for each loop, which will run once for every value in total[]
   // The process of converting to vanilla javascript means it was more practical to create a function to check for an empty HTML element.
-  
+  console.log( isEmpty( result ))
   if ( isEmpty( result ) ) {
 
     // Converted to vanilla js for loop, and added opening and closing ul tags before printing to the webpage
@@ -105,7 +113,7 @@ function postCheck(total) {
     //    so lets delete all the content result.
 
     // Deletes the content of result. So by accessing the DOM we have removed all the list items that we previously posted
-    result.empty()
+    clearContents( result );
 
     console.log(result)
     // open up #div result in the console. console.log(result) will return an array. notice how the one that runs earlier has a value for the innerHTML and innerText.
